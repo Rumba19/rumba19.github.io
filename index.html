@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bikram Rumba — Senior .NET Engineer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #080808;
+  --bg2: #0f0f0f;
+  --bg3: #161616;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #f0ede8;
+  --muted: #888880;
+  --accent: #c8b89a;
+  --accent2: #e8d5b8;
+  --green: #4ade80;
+  --mono: 'DM Mono', monospace;
+  --serif: 'DM Serif Display', serif;
+  --sans: 'Outfit', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--accent); color: #000; }
+
+/* scrollbar */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border2); }
+
+/* noise overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+  opacity: .4;
+}
+
+/* nav */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.25rem 3rem;
+  border-bottom: 1px solid var(--border);
+  background: rgba(8,8,8,0.85);
+  backdrop-filter: blur(12px);
+}
+
+.nav-logo {
+  font-family: var(--mono);
+  font-size: 13px;
+  color: var(--accent);
+  letter-spacing: .1em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  text-decoration: none;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  transition: color .2s;
+}
+
+.nav-links a:hover { color: var(--text); }
+
+/* hero */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 8rem 3rem 4rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%);
+}
+
+.hero-eyebrow {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: .15em;
+  text-transform: uppercase;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.hero-eyebrow::before {
+  content: '';
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(3.5rem, 8vw, 7rem);
+  line-height: 1;
+  letter-spacing: -.02em;
+  margin-bottom: .5rem;
+  color: var(--text);
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-title {
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  line-height: 1.6;
+}
+
+.hero-title strong {
+  color: var(--accent2);
+  font-weight: 500;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.75rem;
+  background: var(--accent);
+  color: #0a0a0a;
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+
+.btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .75rem 1.75rem;
+  background: transparent;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--border2);
+  transition: color .2s, border-color .2s;
+}
+
+.btn-ghost:hover { color: var(--text); border-color: var(--accent); }
+
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 3rem;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--muted), transparent);
+}
+
+/* status badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .35rem .9rem;
+  border: 1px solid rgba(74,222,128,.2);
+  background: rgba(74,222,128,.05);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: .08em;
+  margin-bottom: 2rem;
+  width: fit-content;
+}
+
+.status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: .3; }
+}
+
+/* sections */
+section {
+  padding: 7rem 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+.section-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+}
+
+.section-label::before {
+  content: '';
+  display: block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.1;
+  margin-bottom: 3rem;
+  letter-spacing: -.01em;
+}
+
+/* about */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.about-text p {
+  color: var(--muted);
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
+.about-text p strong { color: var(--accent2); font-weight: 500; }
+
+.about-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.stat-item {
+  background: var(--bg2);
+  padding: 2rem 1.5rem;
+}
+
+.stat-num {
+  font-family: var(--serif);
+  font-size: 3rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: .25rem;
+}
+
+.stat-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+
+/* skills */
+#skills { background: var(--bg2); }
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.skill-card {
+  background: var(--bg2);
+  padding: 2rem;
+  transition: background .2s;
+}
+
+.skill-card:hover { background: var(--bg3); }
+
+.skill-icon {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: .1em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.skill-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: .75rem;
+  color: var(--text);
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.tag {
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: .2rem .6rem;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  letter-spacing: .04em;
+}
+
+/* projects */
+.projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.project-item {
+  background: var(--bg);
+  padding: 2.5rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2rem;
+  align-items: start;
+  transition: background .2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.project-item:hover { background: var(--bg2); }
+
+.project-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--border2);
+  letter-spacing: .1em;
+  margin-bottom: .75rem;
+}
+
+.project-name {
+  font-family: var(--serif);
+  font-size: 1.6rem;
+  color: var(--text);
+  margin-bottom: .75rem;
+  letter-spacing: -.01em;
+}
+
+.project-desc {
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-bottom: 1.25rem;
+}
+
+.project-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.project-arrow {
+  font-size: 1.5rem;
+  color: var(--border2);
+  transition: color .2s, transform .2s;
+  align-self: center;
+}
+
+.project-item:hover .project-arrow {
+  color: var(--accent);
+  transform: translate(4px, -4px);
+}
+
+.project-highlight {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 11px;
+  padding: .2rem .7rem;
+  background: rgba(200,184,154,.1);
+  border: 1px solid rgba(200,184,154,.2);
+  color: var(--accent);
+  letter-spacing: .06em;
+  margin-bottom: 1rem;
+}
+
+/* experience */
+#experience { background: var(--bg2); }
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 3rem;
+  padding: 2.5rem 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.exp-item:first-child { border-top: 1px solid var(--border); }
+
+.exp-date {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: .06em;
+  padding-top: .2rem;
+}
+
+.exp-role {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: .25rem;
+}
+
+.exp-company {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--accent);
+  letter-spacing: .06em;
+  margin-bottom: 1rem;
+}
+
+.exp-desc {
+  color: var(--muted);
+  font-size: .95rem;
+  line-height: 1.75;
+}
+
+.exp-desc li {
+  margin-bottom: .4rem;
+  padding-left: 1rem;
+  position: relative;
+}
+
+.exp-desc li::before {
+  content: '—';
+  position: absolute;
+  left: 0;
+  color: var(--border2);
+}
+
+/* currently building */
+.building-bar {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 2rem 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: wrap;
+  margin-top: 4rem;
+}
+
+.building-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--green);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+.building-text {
+  font-size: 1rem;
+  color: var(--accent2);
+  flex: 1;
+}
+
+.building-text span { color: var(--muted); font-size: .9rem; }
+
+/* contact */
+.contact-inner {
+  max-width: 680px;
+}
+
+.contact-intro {
+  font-size: 1.1rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 3rem;
+}
+
+.contact-intro strong { color: var(--accent2); font-weight: 500; }
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin-bottom: 3rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 1.75rem;
+  background: var(--bg);
+  text-decoration: none;
+  transition: background .2s;
+}
+
+.contact-link:hover { background: var(--bg2); }
+
+.contact-link-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: .2rem;
+}
+
+.contact-link-value {
+  font-size: 1rem;
+  color: var(--accent2);
+}
+
+.contact-link-arrow {
+  color: var(--border2);
+  font-size: 1.2rem;
+  transition: color .2s, transform .2s;
+}
+
+.contact-link:hover .contact-link-arrow {
+  color: var(--accent);
+  transform: translate(3px, -3px);
+}
+
+/* footer */
+footer {
+  padding: 2rem 3rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  position: relative;
+}
+
+.footer-copy {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+.footer-stack {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: .06em;
+}
+
+/* animations */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  section { padding: 5rem 1.5rem; }
+  .hero { padding: 7rem 1.5rem 4rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  .exp-item { grid-template-columns: 1fr; gap: .75rem; }
+  .project-item { grid-template-columns: 1fr; }
+  .project-arrow { display: none; }
+  footer { flex-direction: column; gap: .75rem; text-align: center; }
+  .hero-scroll { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">BR</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-grid"></div>
+
+  <div class="status-badge">
+    <span class="status-dot"></span>
+    Available for new opportunities
+  </div>
+
+  <div class="hero-eyebrow">Los Angeles, CA</div>
+
+  <h1 class="hero-name">
+    Bikram<br><em>Rumba</em>
+  </h1>
+
+  <p class="hero-title">
+    <strong>Senior .NET Engineer</strong> building enterprise systems and agentic AI on AWS.
+    6+ years shipping production software across education, healthcare, and financial services.
+  </p>
+
+  <div class="hero-cta">
+    <a href="#projects" class="btn-primary">View my work ↓</a>
+    <a href="#contact" class="btn-ghost">Get in touch →</a>
+  </div>
+
+  <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-label">About</div>
+  <div class="about-grid">
+    <div class="about-text fade-up">
+      <p>
+        I'm a <strong>Senior .NET Engineer</strong> with a focus on enterprise backend systems, 
+        cloud-native AWS architecture, and — most recently — agentic AI. I've spent 6+ years 
+        building software that actually ships, stays maintainable, and handles real-world complexity.
+      </p>
+      <p>
+        At <strong>LAUSD</strong> I architected a large-scale student enrollment platform serving 
+        thousands of concurrent users — built on .NET Core, AWS SQS, Lambda, SES, and PostgreSQL. 
+        I owned everything from API design to security compliance to production deployment.
+      </p>
+      <p>
+        I'm currently building <strong>EnrollMate</strong> — an agentic AI system that autonomously 
+        processes enrollment applications using Semantic Kernel, AWS Bedrock, and .NET 10. 
+        It's my showcase for what enterprise software looks like when it thinks for itself.
+      </p>
+      <p>
+        I don't just write code — I'm involved in architecture decisions, code reviews, and 
+        technical direction. I care about systems that last, not just systems that work today.
+      </p>
+    </div>
+
+    <div class="about-stats fade-up">
+      <div class="stat-item">
+        <div class="stat-num">6+</div>
+        <div class="stat-label">Years experience</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Industries shipped</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">MS</div>
+        <div class="stat-label">Computer Science</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">AWS</div>
+        <div class="stat-label">DVA-C02 in progress</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-label">Skills</div>
+  <h2 class="section-title">What I build with</h2>
+
+  <div class="skills-grid fade-up">
+    <div class="skill-card">
+      <div class="skill-icon">01 — Backend</div>
+      <div class="skill-name">.NET Core & C#</div>
+      <div class="skill-tags">
+        <span class="tag">.NET 10</span>
+        <span class="tag">ASP.NET Core</span>
+        <span class="tag">Web API</span>
+        <span class="tag">Minimal APIs</span>
+        <span class="tag">EF Core</span>
+        <span class="tag">Dapper</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">02 — Cloud</div>
+      <div class="skill-name">AWS Architecture</div>
+      <div class="skill-tags">
+        <span class="tag">SQS</span>
+        <span class="tag">SNS</span>
+        <span class="tag">Lambda</span>
+        <span class="tag">SES</span>
+        <span class="tag">EC2</span>
+        <span class="tag">RDS</span>
+        <span class="tag">CloudFront</span>
+        <span class="tag">Secrets Manager</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">03 — AI Agents</div>
+      <div class="skill-name">Agentic AI</div>
+      <div class="skill-tags">
+        <span class="tag">Semantic Kernel</span>
+        <span class="tag">AWS Bedrock</span>
+        <span class="tag">Tool calling</span>
+        <span class="tag">RAG</span>
+        <span class="tag">LLM orchestration</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">04 — Data</div>
+      <div class="skill-name">Databases</div>
+      <div class="skill-tags">
+        <span class="tag">PostgreSQL</span>
+        <span class="tag">SQL Server</span>
+        <span class="tag">DynamoDB</span>
+        <span class="tag">Query optimisation</span>
+        <span class="tag">Migrations</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">05 — Security</div>
+      <div class="skill-name">Auth & Security</div>
+      <div class="skill-tags">
+        <span class="tag">JWT</span>
+        <span class="tag">OAuth 2.0</span>
+        <span class="tag">RBAC</span>
+        <span class="tag">OWASP Top 10</span>
+        <span class="tag">Veracode</span>
+      </div>
+    </div>
+
+    <div class="skill-card">
+      <div class="skill-icon">06 — Architecture</div>
+      <div class="skill-name">Patterns & Design</div>
+      <div class="skill-tags">
+        <span class="tag">Microservices</span>
+        <span class="tag">Clean Architecture</span>
+        <span class="tag">CQRS</span>
+        <span class="tag">Event-driven</span>
+        <span class="tag">SOLID</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <h2 class="section-title">Things I've built</h2>
+
+  <div class="projects-list fade-up">
+
+    <a href="https://github.com/Rumba19/EnrollMate" target="_blank" class="project-item">
+      <div>
+        <div class="project-num">01</div>
+        <div class="project-highlight">Currently building</div>
+        <div class="project-name">EnrollMate Agent</div>
+        <p class="project-desc">
+          An autonomous AI agent that processes student enrollment applications end to end — 
+          eligibility checks, document verification, personalised parent communications, 
+          and human escalation for edge cases. Built on .NET 10, Semantic Kernel, and AWS Bedrock. 
+          Zero staff involvement for routine cases.
+        </p>
+        <div class="project-stack">
+          <span class="tag">.NET 10</span>
+          <span class="tag">Semantic Kernel</span>
+          <span class="tag">AWS Bedrock</span>
+          <span class="tag">SQS</span>
+          <span class="tag">Lambda</span>
+          <span class="tag">SES</span>
+          <span class="tag">Agentic AI</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+    <div class="project-item" style="cursor:default">
+      <div>
+        <div class="project-num">02</div>
+        <div class="project-highlight">Production — LAUSD</div>
+        <div class="project-name">Enterprise Enrollment Platform</div>
+        <p class="project-desc">
+          Large-scale student application and enrollment system serving thousands of concurrent 
+          users across the Los Angeles Unified School District. Architected microservices 
+          on AWS with event-driven async pipelines, JWT/RBAC authentication, OWASP security 
+          compliance, and zero-downtime PostgreSQL migration from SQL Server.
+        </p>
+        <div class="project-stack">
+          <span class="tag">.NET Core</span>
+          <span class="tag">AWS</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SQS</span>
+          <span class="tag">Lambda</span>
+          <span class="tag">CloudFront</span>
+          <span class="tag">JWT/RBAC</span>
+        </div>
+      </div>
+      <div class="project-arrow">—</div>
+    </div>
+
+    <a href="https://github.com/Rumba19/LocationTracker" target="_blank" class="project-item">
+      <div>
+        <div class="project-num">03</div>
+        <div class="project-name">Location Tracker</div>
+        <p class="project-desc">
+          Real-time location tracking service built in C# and .NET. 
+          Demonstrates event-driven architecture and real-time data processing patterns.
+        </p>
+        <div class="project-stack">
+          <span class="tag">C#</span>
+          <span class="tag">.NET</span>
+          <span class="tag">Real-time</span>
+        </div>
+      </div>
+      <div class="project-arrow">↗</div>
+    </a>
+
+  </div>
+
+  <div class="building-bar fade-up">
+    <div class="building-label">
+      <span class="status-dot"></span>
+      Active development
+    </div>
+    <div class="building-text">
+      EnrollMate agent tools in progress — Semantic Kernel orchestration, mock data layer complete
+      <span> · github.com/Rumba19/EnrollMate</span>
+    </div>
+    <a href="https://github.com/Rumba19" target="_blank" class="btn-ghost">View GitHub →</a>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="section-label">Experience</div>
+  <h2 class="section-title">Where I've worked</h2>
+
+  <div class="exp-list fade-up">
+
+    <div class="exp-item">
+      <div class="exp-date">Mar 2022 — Present</div>
+      <div>
+        <div class="exp-role">Senior Software Engineer</div>
+        <div class="exp-company">Los Angeles Unified School District · Los Angeles, CA</div>
+        <ul class="exp-desc">
+          <li>Architected large-scale enrollment platform on AWS serving thousands of concurrent users</li>
+          <li>Built event-driven microservices with SQS, Lambda, SES, SNS for async processing</li>
+          <li>Engineered JWT/RBAC auth system with parent portal and multi-level staff roles</li>
+          <li>Migrated SQL Server data layer to PostgreSQL on AWS RDS with zero downtime</li>
+          <li>Identified and remediated OWASP Top 10 vulnerabilities via Veracode and WebInspect</li>
+          <li>Involved in architecture decisions, code reviews, and technical direction</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Apr 2021 — Mar 2022</div>
+      <div>
+        <div class="exp-role">Senior Software Engineer</div>
+        <div class="exp-company">Health Care Service Corporation · Richardson, TX</div>
+        <ul class="exp-desc">
+          <li>Refactored monolithic healthcare applications into .NET Core microservices</li>
+          <li>Built Azure-compatible deployments with Azure AD, Azure SQL, and Web Roles</li>
+          <li>Designed ETL pipelines with SSIS and drill-through SSRS reporting</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item">
+      <div class="exp-date">Jan 2020 — Mar 2021</div>
+      <div>
+        <div class="exp-role">Senior Software Engineer</div>
+        <div class="exp-company">Regions Financial Corporation · Birmingham, AL</div>
+        <ul class="exp-desc">
+          <li>Built secure customer portal applications in C# and ASP.NET MVC</li>
+          <li>Configured Azure cloud infrastructure for financial services environment</li>
+          <li>Optimised T-SQL queries via execution plan analysis in SSMS</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <h2 class="section-title">Let's talk</h2>
+
+  <div class="contact-inner fade-up">
+    <p class="contact-intro">
+      I'm open to <strong>senior engineer, lead, and solutions architect roles</strong> in Los Angeles 
+      or remote. If you're building something interesting with enterprise systems or AI — 
+      I'd like to hear about it.
+    </p>
+
+    <div class="contact-links">
+      <a href="https://www.linkedin.com/in/bikram-rumba-205361253" target="_blank" class="contact-link">
+        <div>
+          <div class="contact-link-label">LinkedIn</div>
+          <div class="contact-link-value">linkedin.com/in/bikram-rumba-205361253</div>
+        </div>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="https://github.com/Rumba19" target="_blank" class="contact-link">
+        <div>
+          <div class="contact-link-label">GitHub</div>
+          <div class="contact-link-value">github.com/Rumba19</div>
+        </div>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+      <a href="mailto:bikram.rumba022@gmail.com" class="contact-link">
+        <div>
+          <div class="contact-link-label">Email</div>
+          <div class="contact-link-value">bikram.rumba022@gmail.com</div>
+        </div>
+        <span class="contact-link-arrow">↗</span>
+      </a>
+    </div>
+
+    <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .06em;">
+      Based in Los Angeles, CA · Open to remote · Available now
+    </p>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2026 Bikram Rumba</span>
+  <span class="footer-stack">Built with HTML · Hosted on GitHub Pages</span>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 100);
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
