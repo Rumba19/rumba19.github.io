@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bikram Rumba — Senior .NET Engineer</title>
+<title>Bikram Rumba | Senior .NET Engineer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
@@ -105,34 +105,14 @@ nav {
   overflow: hidden;
 }
 
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-  background-size: 60px 60px;
-  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 0%, transparent 100%);
-}
 
 .hero-eyebrow {
   font-family: var(--mono);
   font-size: 12px;
-  color: var(--accent);
-  letter-spacing: .15em;
+  color: var(--muted);
+  letter-spacing: .12em;
   text-transform: uppercase;
   margin-bottom: 1.5rem;
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-}
-
-.hero-eyebrow::before {
-  content: '';
-  display: block;
-  width: 32px;
-  height: 1px;
-  background: var(--accent);
 }
 
 .hero-name {
@@ -271,17 +251,6 @@ section {
   letter-spacing: .18em;
   text-transform: uppercase;
   margin-bottom: 1rem;
-  display: flex;
-  align-items: center;
-  gap: .75rem;
-}
-
-.section-label::before {
-  content: '';
-  display: block;
-  width: 24px;
-  height: 1px;
-  background: var(--accent);
 }
 
 .section-title {
@@ -312,14 +281,13 @@ section {
 .about-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  gap: 1.5rem;
 }
 
 .stat-item {
   background: var(--bg2);
   padding: 2rem 1.5rem;
+  border: 1px solid var(--border);
 }
 
 .stat-num {
@@ -344,23 +312,22 @@ section {
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  gap: 1.25rem;
 }
 
 .skill-card {
   background: var(--bg2);
   padding: 2rem;
-  transition: background .2s;
+  border: 1px solid var(--border);
+  transition: border-color .2s;
 }
 
-.skill-card:hover { background: var(--bg3); }
+.skill-card:hover { border-color: var(--border2); }
 
 .skill-icon {
   font-family: var(--mono);
   font-size: 11px;
-  color: var(--accent);
+  color: var(--muted);
   letter-spacing: .1em;
   margin-bottom: 1rem;
   text-transform: uppercase;
@@ -392,24 +359,23 @@ section {
 .projects-list {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  gap: 1.25rem;
 }
 
 .project-item {
-  background: var(--bg);
+  background: var(--bg2);
+  border: 1px solid var(--border);
   padding: 2.5rem;
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 2rem;
   align-items: start;
-  transition: background .2s;
+  transition: border-color .2s;
   text-decoration: none;
   color: inherit;
 }
 
-.project-item:hover { background: var(--bg2); }
+.project-item:hover { border-color: var(--border2); }
 
 .project-num {
   font-family: var(--mono);
@@ -520,10 +486,10 @@ section {
 }
 
 .exp-desc li::before {
-  content: '—';
+  content: '·';
   position: absolute;
   left: 0;
-  color: var(--border2);
+  color: var(--muted);
 }
 
 /* currently building */
@@ -575,9 +541,7 @@ section {
 .contact-links {
   display: flex;
   flex-direction: column;
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
+  gap: .75rem;
   margin-bottom: 3rem;
 }
 
@@ -586,12 +550,13 @@ section {
   align-items: center;
   justify-content: space-between;
   padding: 1.25rem 1.75rem;
-  background: var(--bg);
+  background: var(--bg2);
+  border: 1px solid var(--border);
   text-decoration: none;
-  transition: background .2s;
+  transition: border-color .2s;
 }
 
-.contact-link:hover { background: var(--bg2); }
+.contact-link:hover { border-color: var(--border2); }
 
 .contact-link-label {
   font-family: var(--mono);
@@ -685,13 +650,7 @@ footer {
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-grid"></div>
-
-  <div class="status-badge">
-    <span class="status-dot"></span>
-    Available for new opportunities
-  </div>
-
+  
   <div class="hero-eyebrow">Los Angeles, CA</div>
 
   <h1 class="hero-name">
@@ -708,7 +667,6 @@ footer {
     <a href="#contact" class="btn-ghost">Get in touch →</a>
   </div>
 
-  <div class="hero-scroll">Scroll</div>
 </section>
 
 <!-- ABOUT -->
@@ -765,7 +723,7 @@ footer {
 
   <div class="skills-grid fade-up">
     <div class="skill-card">
-      <div class="skill-icon">01 — Backend</div>
+      <div class="skill-icon">Backend</div>
       <div class="skill-name">.NET Core & C#</div>
       <div class="skill-tags">
         <span class="tag">.NET 10</span>
@@ -778,7 +736,7 @@ footer {
     </div>
 
     <div class="skill-card">
-      <div class="skill-icon">02 — Cloud</div>
+      <div class="skill-icon">Cloud</div>
       <div class="skill-name">AWS Architecture</div>
       <div class="skill-tags">
         <span class="tag">SQS</span>
@@ -793,7 +751,7 @@ footer {
     </div>
 
     <div class="skill-card">
-      <div class="skill-icon">03 — AI Agents</div>
+      <div class="skill-icon">AI Agents</div>
       <div class="skill-name">Agentic AI</div>
       <div class="skill-tags">
         <span class="tag">Semantic Kernel</span>
@@ -805,7 +763,7 @@ footer {
     </div>
 
     <div class="skill-card">
-      <div class="skill-icon">04 — Data</div>
+      <div class="skill-icon">Data</div>
       <div class="skill-name">Databases</div>
       <div class="skill-tags">
         <span class="tag">PostgreSQL</span>
@@ -817,7 +775,7 @@ footer {
     </div>
 
     <div class="skill-card">
-      <div class="skill-icon">05 — Security</div>
+      <div class="skill-icon">Security</div>
       <div class="skill-name">Auth & Security</div>
       <div class="skill-tags">
         <span class="tag">JWT</span>
@@ -829,7 +787,7 @@ footer {
     </div>
 
     <div class="skill-card">
-      <div class="skill-icon">06 — Architecture</div>
+      <div class="skill-icon">Architecture</div>
       <div class="skill-name">Patterns & Design</div>
       <div class="skill-tags">
         <span class="tag">Microservices</span>
@@ -870,13 +828,13 @@ footer {
           <span class="tag">Agentic AI</span>
         </div>
       </div>
-      <div class="project-arrow">↗</div>
+
     </a>
 
     <div class="project-item" style="cursor:default">
       <div>
         <div class="project-num">02</div>
-        <div class="project-highlight">Production — LAUSD</div>
+        <div class="project-highlight">Production at LAUSD</div>
         <div class="project-name">Enterprise Enrollment Platform</div>
         <p class="project-desc">
           Large-scale student application and enrollment system serving thousands of concurrent 
@@ -894,7 +852,7 @@ footer {
           <span class="tag">JWT/RBAC</span>
         </div>
       </div>
-      <div class="project-arrow">—</div>
+      <div class="project-arrow"></div>
     </div>
 
     <a href="https://github.com/Rumba19/LocationTracker" target="_blank" class="project-item">
@@ -937,10 +895,10 @@ footer {
   <div class="exp-list fade-up">
 
     <div class="exp-item">
-      <div class="exp-date">Mar 2022 — Present</div>
+      <div class="exp-date">Mar 2022 – Present</div>
       <div>
         <div class="exp-role">Senior Software Engineer</div>
-        <div class="exp-company">Los Angeles Unified School District · Los Angeles, CA</div>
+        <div class="exp-company">Los Angeles Unified School District, Los Angeles CA</div>
         <ul class="exp-desc">
           <li>Architected large-scale enrollment platform on AWS serving thousands of concurrent users</li>
           <li>Built event-driven microservices with SQS, Lambda, SES, SNS for async processing</li>
@@ -953,10 +911,10 @@ footer {
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">Apr 2021 — Mar 2022</div>
+      <div class="exp-date">Apr 2021 – Mar 2022</div>
       <div>
         <div class="exp-role">Senior Software Engineer</div>
-        <div class="exp-company">Health Care Service Corporation · Richardson, TX</div>
+        <div class="exp-company">Health Care Service Corporation, Richardson TX</div>
         <ul class="exp-desc">
           <li>Refactored monolithic healthcare applications into .NET Core microservices</li>
           <li>Built Azure-compatible deployments with Azure AD, Azure SQL, and Web Roles</li>
@@ -966,10 +924,10 @@ footer {
     </div>
 
     <div class="exp-item">
-      <div class="exp-date">Jan 2020 — Mar 2021</div>
+      <div class="exp-date">Jan 2020 – Mar 2021</div>
       <div>
         <div class="exp-role">Senior Software Engineer</div>
-        <div class="exp-company">Regions Financial Corporation · Birmingham, AL</div>
+        <div class="exp-company">Regions Financial Corporation, Birmingham AL</div>
         <ul class="exp-desc">
           <li>Built secure customer portal applications in C# and ASP.NET MVC</li>
           <li>Configured Azure cloud infrastructure for financial services environment</li>
@@ -1018,14 +976,14 @@ footer {
     </div>
 
     <p style="font-family: var(--mono); font-size: 11px; color: var(--muted); letter-spacing: .06em;">
-      Based in Los Angeles, CA · Open to remote · Available now
+      Based in Los Angeles, CA &nbsp;·&nbsp; Open to remote &nbsp;·&nbsp; Available now
     </p>
   </div>
 </section>
 
 <footer>
   <span class="footer-copy">© 2026 Bikram Rumba</span>
-  <span class="footer-stack">Built with HTML · Hosted on GitHub Pages</span>
+  <span class="footer-stack">Built with HTML, hosted on GitHub Pages</span>
 </footer>
 
 <script>
